@@ -72,6 +72,22 @@
                 android:text="@string/action_sign_in"
                 android:textStyle="bold" />
 
+            <ImageView
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@mipmap/pic15"/>
+
+            <Button
+                android:id="@+id/sign_up_button"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:background="@color/colorButton"
+                android:textColor="@color/White"
+                android:layout_height="wrap_content"
+                android:text="@string/online_sing_up" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

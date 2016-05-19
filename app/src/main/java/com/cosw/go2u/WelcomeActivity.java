@@ -1,9 +1,13 @@
 package com.cosw.go2u;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
+import android.support.v7.app.AlertDialog;
 import android.util.Base64;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -14,6 +18,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -39,14 +46,14 @@ public class WelcomeActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -56,6 +63,20 @@ public class WelcomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        Button save =(Button) findViewById(R.id.user_welcome_save_button);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username= ((EditText) findViewById(R.id.welcome_username)).getText().toString();
+                String name= ((EditText) findViewById(R.id.welcome_name)).getText().toString();
+                String lastname= ((EditText) findViewById(R.id.welcome_lastname)).getText().toString();
+                String address= ((EditText) findViewById(R.id.welcome_address)).getText().toString();
+                String email= ((EditText) findViewById(R.id.welcome_email)).getText().toString();
+                String phone= ((EditText) findViewById(R.id.welcome_phone)).getText().toString();
+                new SaveStudent().execute(LoginActivity.user,LoginActivity.password,username,name,lastname,address,email,phone);
+            }
+        });
     }
 
     @Override
@@ -96,11 +117,11 @@ public class WelcomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_find_univ) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_check_result) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_payment) {
 
         } else if (id == R.id.nav_manage) {
 
@@ -108,6 +129,24 @@ public class WelcomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.nav_logout) {
+            AlertDialog.Builder alertBuilder=new AlertDialog.Builder(WelcomeActivity.this);
+            alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    Intent intent = new Intent(WelcomeActivity.this, LoginActivity.class);
+                    WelcomeActivity.this.startActivity(intent);
+                }
+            });
+            alertBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+
+                }
+            });
+            AlertDialog alertDialog = alertBuilder.create();
+            alertDialog.setTitle("Student");
+            alertDialog.setMessage("Do you want to logout?");
+
+            alertDialog.show();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -121,8 +160,8 @@ public class WelcomeActivity extends AppCompatActivity
         protected ArrayList<String> doInBackground(String... args) {
             ArrayList<String> resp = new ArrayList<>();
             try {
-                URL url = new URL("http://go2u.herokuapp.com/api/stu/?id="+args[0]);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                URL url = new URL("https://go2u.herokuapp.com/api/stu/"+args[0]);
+                HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
 
                 urlConnection.setRequestMethod("GET");
                 urlConnection.setRequestProperty("Content-Type", "application/json");
@@ -130,18 +169,6 @@ public class WelcomeActivity extends AppCompatActivity
                 String userpass = args[0]+ ":" + args[1];
                 String basicAuth = "Basic " + new String(Base64.encodeToString(userpass.getBytes(), Base64.NO_WRAP));
                 urlConnection.setRequestProperty ("Authorization", basicAuth);
-
-//                JSONObject jso=new JSONObject();
-//                jso.put("id",args[0]);
-//                String params = jso.toString();
-//
-//                urlConnection.setRequestMethod(params);
-//                byte[] data = message.getBytes("UTF-8");
-//
-//                OutputStream os = urlConnection.getOutputStream();
-//                os.write(jso.toString().getBytes());
-//                os.flush();
-//                os.close();
 
                 int rc=urlConnection.getResponseCode();
                 System.out.println(rc+"");
@@ -155,21 +182,13 @@ public class WelcomeActivity extends AppCompatActivity
                 }
                 in.close();
 
-                System.out.println(response.toString());
-
-                //JSONObject jsonObject = new JSONObject(response.toString());
-                JSONArray jsonArray = new JSONArray(response.toString());
-                JSONObject jsonObject;
-                String s;
-                for (int i=0;i<jsonArray.length();i++) {
-                    //System.out.println(jsonArray.getJSONObject(i).toString());
-                    jsonObject=jsonArray.getJSONObject(i);
-                    s="Id:\t\t\t\t\t"+jsonArray.getJSONObject(i).getInt("idproducto")+"\n"
-                            +"Name:\t\t"+jsonObject.getString("nombre")+"\n"
-                            +"Price:\t\t"+jsonObject.getInt("precio");
-                    //System.out.println(s);
-                    resp.add(s);
-                }
+                JSONObject jsonObject=new JSONObject(response.toString());
+                resp.add(jsonObject.getString("username"));
+                resp.add(jsonObject.getString("name"));
+                resp.add(jsonObject.getString("lastName"));
+                resp.add(jsonObject.getString("address"));
+                resp.add(jsonObject.getString("email"));
+                resp.add(jsonObject.getString("cellPhone"));
 
             } catch (Exception e){
                 e.printStackTrace();
@@ -181,12 +200,106 @@ public class WelcomeActivity extends AppCompatActivity
         @Override
         protected void onPostExecute(ArrayList<String> p) {
             super.onPostExecute(p);
-            if(p!=null){
-                System.out.println("NULL");
-            }
             System.out.println(p.toString());
-            //mAdapter.notifyDataSetChanged();
-            //System.out.println(products.toString());
+            EditText username = (EditText) findViewById(R.id.welcome_username);
+            username.setText(p.get(0));
+            // not editable
+            username.setKeyListener(null);
+            EditText name = (EditText) findViewById(R.id.welcome_name);
+            name.setText(p.get(1));
+            EditText lastname = (EditText) findViewById(R.id.welcome_lastname);
+            lastname.setText(p.get(2));
+            EditText address = (EditText) findViewById(R.id.welcome_address);
+            address.setText(p.get(3));
+            EditText email = (EditText) findViewById(R.id.welcome_email);
+            email.setText(p.get(4));
+            EditText phone = (EditText) findViewById(R.id.welcome_phone);
+            phone.setText(p.get(5));
+            TextView nav_username = (TextView) findViewById(R.id.nav__welcome_username);
+            nav_username.setText(p.get(1));
+            TextView nav_email = (TextView) findViewById(R.id.nav__welcome_email);
+            nav_email.setText(p.get(4));
         }
     }
+
+    public class SaveStudent extends AsyncTask<String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... args) {
+            try {
+                URL url = new URL("https://go2u.herokuapp.com/api/stu/upd/"+args[0]);
+                HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
+
+                urlConnection.setRequestMethod("POST");
+                urlConnection.setRequestProperty("Content-Type", "application/json");
+                String userpass = LoginActivity.user + ":" + LoginActivity.password;
+                String basicAuth = "Basic " + new String(Base64.encodeToString(userpass.getBytes(), Base64.NO_WRAP));
+                urlConnection.setRequestProperty ("Authorization", basicAuth);
+
+                JSONObject jso=new JSONObject();
+                jso.put("username",args[2]);
+                jso.put("name",args[3]);
+                jso.put("lastName",args[4]);
+                jso.put("address",args[5]);
+                jso.put("email",args[6]);
+                jso.put("cellPhone",args[7]);
+                String message = jso.toString();
+                byte[] data = message.getBytes("UTF-8");
+
+                OutputStream os = ((HttpsURLConnection)urlConnection).getOutputStream();
+                os.write(data);
+
+                os.flush();
+                os.close();
+
+                String respmsg = ((HttpsURLConnection)urlConnection).getResponseMessage();
+                System.out.println(respmsg);
+                //Código HTTP de respuesta
+                int restcode=urlConnection.getResponseCode();
+                System.out.println(restcode+"");
+                if(restcode!=200){
+                    return false;
+                }
+
+            } catch (Exception e){
+                e.printStackTrace();
+                return false;
+            }
+            System.out.println("Save");
+            return true;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean success) {
+            super.onPostExecute(success);
+            if (!success){
+                AlertDialog.Builder alertBuilder=new AlertDialog.Builder(WelcomeActivity.this);
+                alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+                AlertDialog alertDialog = alertBuilder.create();
+                alertDialog.setTitle("Student Information");
+                alertDialog.setMessage("It has been a problem, please try again later.\n\nThanks!");
+
+                alertDialog.show();
+
+                new loadStudent().execute(LoginActivity.user,LoginActivity.password);
+            } else {
+                AlertDialog.Builder alertBuilder=new AlertDialog.Builder(WelcomeActivity.this);
+                alertBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+                AlertDialog alertDialog = alertBuilder.create();
+                alertDialog.setTitle("Student Information");
+                alertDialog.setMessage("Your information has been saved.\n\nThanks!");
+
+                alertDialog.show();
+            }
+        }
+    }
+
 }

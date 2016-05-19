@@ -71,6 +71,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         setContentView(R.layout.activity_login);
         // Set up the login form.
         mUserView = (EditText) findViewById(R.id.username_login);
+        user="";
+        password="";
         
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -89,6 +91,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        Button signUpButton = (Button) findViewById(R.id.sign_up_button);
+        signUpButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "http://go2u.herokuapp.com/app/index.html#/welcomeStudent";
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
             }
         });
 
@@ -268,6 +281,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 user_et.setText("");
                 EditText pass_et = (EditText) findViewById(R.id.password);
                 pass_et.setText("");
+
                 user = mUsername;
                 password = mPassword;
                 LoginActivity.this.startActivity(intent);

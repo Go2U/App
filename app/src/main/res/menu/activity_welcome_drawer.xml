@@ -3,21 +3,18 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_find_univ"
+            android:icon="@mipmap/find"
+            android:title="Find University" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_check_result"
+            android:icon="@mipmap/check"
+            android:title="Check Test result" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_payment"
+            android:icon="@mipmap/payment"
+            android:title="Payment" />
+
     </group>
 
     <item android:title="Communicate">
@@ -30,6 +27,18 @@
                 android:id="@+id/nav_send"
                 android:icon="@drawable/ic_menu_send"
                 android:title="Send" />
+        </menu>
+    </item>
+    <item android:title="Settings">
+        <menu>
+            <item
+                android:id="@+id/nav_manage"
+                android:icon="@drawable/ic_menu_manage"
+                android:title="Tools" />
+            <item
+                android:title="Logout"
+                android:icon="@mipmap/logout"
+                android:id="@+id/nav_logout" />
         </menu>
     </item>
 
