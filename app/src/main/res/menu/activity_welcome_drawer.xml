@@ -3,30 +3,25 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_find_univ"
-            android:icon="@mipmap/find"
-            android:title="Find University" />
-        <item
-            android:id="@+id/nav_check_result"
-            android:icon="@mipmap/check"
-            android:title="Check Test result" />
-        <item
-            android:id="@+id/nav_payment"
-            android:icon="@mipmap/payment"
-            android:title="Payment" />
-
+            android:id="@+id/nav_home_welcome"
+            android:icon="@drawable/ic_menu_home"
+            android:title="Home" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Universities">
         <menu>
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/nav_find_univ"
+                android:icon="@mipmap/find"
+                android:title="Find university" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/nav_check_result"
+                android:icon="@mipmap/check"
+                android:title="Check test result" />
+            <item
+                android:id="@+id/nav_payment"
+                android:icon="@mipmap/payment"
+                android:title="Payment" />
         </menu>
     </item>
     <item android:title="Settings">
@@ -34,7 +29,7 @@
             <item
                 android:id="@+id/nav_manage"
                 android:icon="@drawable/ic_menu_manage"
-                android:title="Tools" />
+                android:title="Update information" />
             <item
                 android:title="Logout"
                 android:icon="@mipmap/logout"
