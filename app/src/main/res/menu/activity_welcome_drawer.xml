@@ -21,7 +21,7 @@
             <item
                 android:id="@+id/nav_payment"
                 android:icon="@mipmap/payment"
-                android:title="Payment" />
+                android:title="University enrollment" />
         </menu>
     </item>
     <item android:title="Settings">

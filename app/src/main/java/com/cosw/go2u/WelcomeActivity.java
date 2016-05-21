@@ -126,7 +126,8 @@ public class WelcomeActivity extends AppCompatActivity
             fragment = (Fragment) TestResultFragment.newInstance(userData.get(1),userData.get(2));
             title="Check test result";
         } else if (id == R.id.nav_payment) {
-
+            fragment = (Fragment) TestResultFragment.newInstance(userData.get(1),userData.get(2));
+            title="University enrollment";
         } else if (id == R.id.nav_manage) {
             fragment = (Fragment) InformationFragment.newInstance(userData.get(0),userData.get(1),userData.get(2),userData.get(3),userData.get(4),userData.get(5));
             title="Update infomation";
