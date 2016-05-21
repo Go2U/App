@@ -29,6 +29,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textColor="@color/Blue"
+                    android:textStyle="bold"
+                    android:textSize="30dp"
                     android:text="@string/welcome_title" />
 
             </android.support.design.widget.TextInputLayout>
@@ -41,10 +44,37 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
+                    android:textSize="25dp"
                     android:id="@+id/welcome_fragment_name"
                     android:text="@string/welcome_title" />
 
             </android.support.design.widget.TextInputLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/pic13"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/Red"
+                    android:textStyle="italic"
+                    android:textSize="25dp"
+                    android:id="@+id/welcome_fragment_phrase"
+                    android:text="@string/welcome_phrase" />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/pic14"/>
 
         </LinearLayout>
 

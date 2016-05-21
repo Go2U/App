@@ -29,7 +29,8 @@
     <string name="welcome_email">E-mail</string>
     <string name="welcome_cellPhone">Phone</string>
     <string name="welcome_button_save">Update</string>
-    <string name="welcome_title">Bienvenido a Go2U</string>
+    <string name="welcome_title">Welcome to Go2U</string>
+    <string name="welcome_phrase">The best way to find the University and degree of your dreams!</string>
 
     <!--University content fields-->
     <string name="university_name">Name</string>

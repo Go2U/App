@@ -5,5 +5,8 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorButton">#3b6bb3</color>
     <color name="White">#FFFFFF</color>
+    <color name="Black">#000000</color>
+    <color name="Red">#b73737</color>
+    <color name="Blue">#1b5593</color>
     <color name="Question">#d3d8f2</color>
 </resources>
