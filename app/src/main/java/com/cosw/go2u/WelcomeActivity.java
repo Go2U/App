@@ -26,6 +26,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.cosw.go2u.dummy.DummyContent;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -45,10 +47,11 @@ public class WelcomeActivity extends AppCompatActivity
                     WelcomeFragment.OnFragmentInteractionListener,
                     TestResultFragment.OnFragmentInteractionListener,
                     ListUniFragment.OnFragmentInteractionListener,
-                    UniversityFragment.OnFragmentInteractionListener {
+                    UniversityFragment.OnFragmentInteractionListener,
+                    TestFragment.OnListFragmentInteractionListener {
 
     // User data
-    private ArrayList<String> userData = new ArrayList<>();
+    public static final ArrayList<String> userData = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,6 +166,11 @@ public class WelcomeActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+        System.out.println("HOLA");
+    }
+
+    @Override
+    public void onListFragmentInteraction(DummyContent.DummyItem item) {
         System.out.println("HOLA");
     }
 

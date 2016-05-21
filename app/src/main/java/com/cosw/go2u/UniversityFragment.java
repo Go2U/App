@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -94,6 +95,16 @@ public class UniversityFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 sendEmail();
+            }
+        });
+
+        Button save =(Button) uniView.findViewById(R.id.university_take_test_button);
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = (Fragment) TestFragment.newInstance(universityData.get(0));
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.content_welcome, fragment).addToBackStack("").commit();
             }
         });
 
@@ -212,21 +223,15 @@ public class UniversityFragment extends Fragment {
             EditText url = (EditText) getView().findViewById(R.id.university_url);
             url.setText(p.get(4));
             url.setKeyListener(null);
-            System.out.println(p.get(4));
-            if(((EditText) getView().findViewById(R.id.university_url)).getText().toString()!=null){
-                url.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String url = "www.google.com";
-                        if(((EditText) getView().findViewById(R.id.university_url)).getText().toString()!=null){
-                            url = ((EditText) getView().findViewById(R.id.university_url)).getText().toString();
-                        }
-                        Intent i = new Intent(Intent.ACTION_VIEW);
-                        i.setData(Uri.parse(url));
-                        startActivity(i);
-                    }
-                });
-            }
+            url.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String url = ((EditText) getView().findViewById(R.id.university_url)).getText().toString();
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse(url));
+                    startActivity(i);
+                }
+            });
             EditText phone = (EditText) getView().findViewById(R.id.university_phone);
             phone.setText(p.get(6));
             phone.setKeyListener(null);

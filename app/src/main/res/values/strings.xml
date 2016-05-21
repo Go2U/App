@@ -38,7 +38,8 @@
     <string name="university_phone">Phone</string>
     <string name="university_url">URL</string>
     <string name="university_desc">Description</string>
-    <string name="university_button_test">Take the test</string>
+    <string name="university_button_test">Take the Test</string>
+    <string name="test_button_send">Save and send Test</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
